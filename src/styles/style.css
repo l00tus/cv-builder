@@ -96,3 +96,10 @@ body {
     width: 475px;
     box-shadow: 30px -30px 1px #0e094a59;
 }
+
+.footer p {
+    color: #A8E0FF;
+    margin-top: 100px;
+    margin-left: 10px;
+    font-size: 8px;
+}
