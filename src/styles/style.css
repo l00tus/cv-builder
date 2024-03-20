@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nexa', sans-serif;
+}
+
+body {
+    background-color: #0A1128;
+}
+
+.nav-bar {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titlu {
+    color: #A8E0FF;
+    font-size: 20px;
+    margin-left: 70px;
+}
+
+.titlu span {
+    color: #F8F4F9;
+}
+
+.nav-links {
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.link {
+    margin-left: 6px;
+}
+
+.link a{
+    color: #F8F4F9;
+    font-size: 20px;
+    font-weight: 600; 
+    text-decoration: none;
+    padding: 11px 14px 8px 14px;
+    border-radius: 25px;
+}
+
+.link a:hover {
+    background-color: #A8E0FF;
+    color: #0A1128;
+}
+
+.nav-img {
+    height: 100px;
+    margin-left: -25px; 
+}
+/* 
+si acum
+TEST! dau test?????? ?????da (emoji care plange) 
+deciiii
+deci ai vazut cum am pus link urile care duc spre paginile de list si credits
+acum vreau sa faci paginile de list si credits
+hint: e acelasi navbar 
+hint: tre sa modifici doar hreful linkurilor
+*/
