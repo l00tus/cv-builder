@@ -22,6 +22,14 @@ body {
     margin-left: 70px;
 }
 
+.titlu a {
+    text-decoration: none;
+}
+
+.titlu a:visited {
+    color: inherit;
+}
+
 .titlu span {
     color: #F8F4F9;
 }
