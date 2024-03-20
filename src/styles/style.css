@@ -19,7 +19,7 @@ body {
 .titlu {
     color: #A8E0FF;
     font-size: 20px;
-    margin-left: 70px;
+    margin-left: 300px;
 }
 
 .titlu a {
@@ -61,14 +61,38 @@ body {
 
 .nav-img {
     height: 100px;
-    margin-left: -25px; 
+    margin-left: 110px; 
 }
-/* 
-si acum
-TEST! dau test?????? ?????da (emoji care plange) 
-deciiii
-deci ai vazut cum am pus link urile care duc spre paginile de list si credits
-acum vreau sa faci paginile de list si credits
-hint: e acelasi navbar 
-hint: tre sa modifici doar hreful linkurilor
-*/
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.start {
+    margin-left: 180px;
+}
+
+.start button {
+    border: none;
+    cursor: pointer;
+    background-color: #A8E0FF;
+    width: 100px;
+    height: 50px;
+    border-radius: 25px;
+    padding-top: 4px;
+    color: #0A1128;
+    font-weight: bold;;
+}
+
+.start button:hover{
+    background-color: #F8F4F9;
+
+}
+.home-image {
+    margin-right: 190px;
+    width: 475px;
+    box-shadow: 30px -30px 1px #0e094a59;
+}
