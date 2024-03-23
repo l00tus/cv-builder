@@ -19,7 +19,7 @@ body {
 .titlu {
     color: #A8E0FF;
     font-size: 20px;
-    margin-left: 300px;
+    margin-left: 410px;
 }
 
 .titlu a {
@@ -37,7 +37,6 @@ body {
 .nav-links {
     margin-left: auto;
     display: flex;
-    justify-content: space-around;
     align-items: center;
 }
 
@@ -72,7 +71,14 @@ body {
 }
 
 .start {
-    margin-left: 180px;
+    flex: 1;
+}
+
+.start {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .start button {
@@ -84,13 +90,22 @@ body {
     border-radius: 25px;
     padding-top: 4px;
     color: #0A1128;
-    font-weight: bold;;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .start button:hover{
     background-color: #F8F4F9;
 
 }
+
+.start p {
+    color: #A8E0FF;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 .home-image {
     margin-right: 190px;
     width: 475px;
