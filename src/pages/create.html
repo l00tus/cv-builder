@@ -6,6 +6,7 @@
     <title>CV Builder</title>
     <link rel="icon" href="../../assets/favicon.png" type="image/png">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/create.css">
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 </head>
 <body>
@@ -31,11 +32,52 @@
     </div>
 
     <div class="content">
+        <div class="nav-col">
+            <ul>
+                <li><a href="#" onclick="showForm('profile')">Profile</a></li>
+                <li><a href="#" onclick="showForm('education')">Education</a></li>
+                <li><a href="#" onclick="showForm('experience')">Experience</a></li>
+                <li><a href="#" onclick="showForm('skills')"">Skills</a></li>
+                <li><a href="#" onclick="showForm('projects')">Projects</a></li>
+                <li><a href="#" onclick="showForm('awards')">Awards</a></li>
+            </ul>
+        </div>
+        <div class="info">
+            <h2>YOUR EDUCATIONAL BACKGROUND</h2>
 
+            <div class="form-group">
+                <label for="name">School Name</label>
+                <input type="text" id="name" name="name" placeholder="National University of Science and Technology Bucharest" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="location">School Location</label>
+                <input type="text" id="location" name="location" placeholder="Bucharest, Romania" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="degree">Degree</label>
+                <input type="text" id="degree" name="degree" placeholder="Bachelor's Degree" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="field">Field of Study</label>
+                <input type="text" id="field" name="field" placeholder="Computer Science" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="start-date">Start Date</label>
+                <input type="text" id="start-date" name="start-date" placeholder="Oct 2023" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="end-date">End Date</label>
+                <input type="text" id="end-date" name="end-date" placeholder="Jun 2027" autocomplete="off">
+        </div>
+        <div class="preview">
+
+        </div>        
     </div>
     
     <div class="footer">
     
-    </div> 
+    </div>
+
+    <script src="../scripts/formHandler.js"></script>
 </body>
 </html>
