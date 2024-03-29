@@ -6,6 +6,7 @@
     <title>CV Builder</title>
     <link rel="icon" href="../../assets/favicon.png" type="image/png">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/create.css">
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 </head>
 <body>
@@ -31,11 +32,26 @@
     </div>
 
     <div class="content">
-
+        <div class="nav-col">
+            <ul>
+                <li><a href="#" onclick="showForm('profile')">Profile</a></li>
+                <li><a href="#" onclick="showForm('education')">Education</a></li>
+                <li><a href="#" onclick="showForm('experience')">Experience</a></li>
+                <li><a href="#" onclick="showForm('skills')"">Skills</a></li>
+                <li><a href="#" onclick="showForm('projects')">Projects</a></li>
+                <li><a href="#" onclick="showForm('awards')">Awards</a></li>
+            </ul>
+        </div>
+        <div class="info">
+        </div>
+        <div class="preview">
+        </div>        
     </div>
     
     <div class="footer">
     
-    </div> 
+    </div>
+
+    <script src="../scripts/formHandler.js"></script>
 </body>
 </html>
