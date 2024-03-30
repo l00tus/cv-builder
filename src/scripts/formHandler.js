@@ -1,12 +1,8 @@
 let jobCounter = 1;
 
-function showForm(formName) {
-    const formContainer = document.querySelector('.info');
-    let formContent = "";
-
-    switch (formName) {
-        case "profile":
-            formContent = `
+const formData = {
+    profile: {
+        html: `
             <h2>YOUR PERSONAL INFO</h2>
 
             <div class="form-group">
@@ -29,11 +25,11 @@ function showForm(formName) {
                 <label for="site">Link</label>
                 <input type="url" id="site" name="site" placeholder="mycoolportfolio.com/johndoe" autocomplete="off">
             </div>
-            `;
-            break;
-
-        case "education":
-            formContent = `
+        `,
+        values: {}
+    },
+    education: {
+        html: `
             <h2>YOUR EDUCATIONAL BACKGROUND</h2>
 
             <div class="form-group">
@@ -60,59 +56,100 @@ function showForm(formName) {
                 <label for="end-date">End Date</label>
                 <input type="text" id="end-date" name="end-date" placeholder="Jun 2027" autocomplete="off">
             </div>
-            `;
-            break;
-        
-        case "experience":
-            formContent = `<h2>YOUR WORK EXPERIENCE</h2>
+        `,
+        values: {}
+    },
+    experience: {
+        html: `<h2>YOUR WORK EXPERIENCE</h2>
             <div class="form-container">
-                <div class="form-group">
-                    <label for="heading">Section Heading</label>
-                    <input type="text" id="heading" name="heading" placeholder="Work Experience" autocomplete="off">
-                </div>
-                <div class="job-group">
-                    <hr>
-                    <div class="form-group">
-                        <label for="name">Company Name</label>
-                        <input type="text" id="name" name="name" placeholder="Google" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="title">Job Title</label>
-                        <input type="text" id="title" name="title" placeholder="Software Engineer" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Job Location</label>
-                        <input type="text" id="location" name="location" placeholder="London, UK" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="start-date">Start Date</label>
-                        <input type="text" id="start-date" name="start-date" placeholder="Oct 2023" autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="end-date">End Date</label>
-                        <input type="text" id="end-date" name="end-date" placeholder="Jun 2027" autocomplete="off">
-                    </div>
-                    <div class="form-group responsibilities-1">
-                        <label for="responsibilities-1">Job Responsibilities</label>
-                        <button onclick="addResponsibility(1)">+</button>
-                        <button onclick="removeResponsibility(1)">-</button>
-                        <input type="text" id="responsibilities-1" name="responsibilities-1" placeholder="Did cool stuff" autocomplete="off">
-                    </div>
-                </div>
+            <div class="form-group">
+            <label for="heading">Section Heading</label>
+            <input type="text" id="heading" name="heading" placeholder="Work Experience" autocomplete="off">
+            </div>
+            <div class="job-group">
+            <hr>
+            <div class="form-group">
+            <label for="name-1">Company Name</label>
+            <input type="text" id="name-1" name="name-1" placeholder="Google" autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="title-1">Job Title</label>
+            <input type="text" id="title-1" name="title-1" placeholder="Software Engineer" autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="location-1">Job Location</label>
+            <input type="text" id="location-1" name="location-1" placeholder="London, UK" autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="start-date-1">Start Date</label>
+            <input type="text" id="start-date-1" name="start-date-1" placeholder="Oct 2023" autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="end-date-1">End Date</label>
+            <input type="text" id="end-date-1" name="end-date-1" placeholder="Jun 2027" autocomplete="off">
+            </div>
+            <div class="form-group responsibilities-1">
+            <label for="responsibilities-1">Job Responsibilities</label>
+            <button onclick="addResponsibility(1)">+</button>
+            <button onclick="removeResponsibility(1)">-</button>
+            <input type="text" id="responsibilities-1" name="responsibilities-1" placeholder="Did cool stuff" autocomplete="off">
+            </div>
+            </div>
             </div>
 
             <div class="buttons">
-                <button onclick="addJob()">Add Job</button>
-                <button onclick="removeJob()">Remove Job</button>
+            <button onclick="addJob()">Add Job</button>
+            <button onclick="removeJob()">Remove Job</button>
             </div>
-            `;
-            break;
-            
-        default:
-            formContent = `<p>Form not found</p>`;
+        `,
+        values: {}
+    },
+    skills: {
+        html: "",
+        values: {}
+    },
+    projects: {
+        html: "",
+        values: {}
+    },
+    awards: {
+        html: "",
+        values: {}
     }
+};
 
-    formContainer.innerHTML = formContent;
+let currentForm = null;
+
+function saveForm() {
+    if (currentForm) {
+        const formHtml = document.querySelector('.info').innerHTML;
+        const formInputs = document.querySelectorAll('.info input, .info textarea');
+        const formValues = {};
+        formInputs.forEach(input => {
+            formValues[input.id] = input.value;
+        });
+        formData[currentForm].html = formHtml;
+        formData[currentForm].values = formValues;
+    } else {
+        alert('Please select a form to save!');
+    }
+}
+
+function showForm(formName) {
+    const formContainer = document.querySelector('.info');
+    const formHtml = formData[formName].html;
+    const formValues = formData[formName].values;
+    formContainer.innerHTML = formHtml;
+    for (const inputId in formValues) {
+        if (Object.hasOwnProperty.call(formValues, inputId)) {
+            const inputValue = formValues[inputId];
+            const inputElement = document.getElementById(inputId);
+            if (inputElement) {
+                inputElement.value = inputValue;
+            }
+        }
+    }
+    currentForm = formName;
 }
 
 function addResponsibility(jobCount) {
@@ -146,24 +183,24 @@ function addJob() {
 
     jobGroup.innerHTML = `<hr>
     <div class="form-group">
-        <label for="name">Company Name</label>
-        <input type="text" id="name" name="name" placeholder="Google" autocomplete="off">
+        <label for="name-${jobCounter}">Company Name</label>
+        <input type="text" id="name-${jobCounter}" name="name-${jobCounter}" placeholder="Google" autocomplete="off">
     </div>
     <div class="form-group">
-        <label for="title">Job Title</label>
-        <input type="text" id="title" name="title" placeholder="Software Engineer" autocomplete="off">
+        <label for="title-${jobCounter}">Job Title</label>
+        <input type="text" id="title-${jobCounter}" name="title-${jobCounter}" placeholder="Software Engineer" autocomplete="off">
     </div>
     <div class="form-group">
-        <label for="location">Job Location</label>
-        <input type="text" id="location" name="location" placeholder="London, UK" autocomplete="off">
+        <label for="location-${jobCounter}">Job Location</label>
+        <input type="text" id="location-${jobCounter}" name="location-${jobCounter}" placeholder="London, UK" autocomplete="off">
     </div>
     <div class="form-group">
-        <label for="start-date">Start Date</label>
-        <input type="text" id="start-date" name="start-date" placeholder="Oct 2023" autocomplete="off">
+        <label for="start-date-${jobCounter}">Start Date</label>
+        <input type="text" id="start-date-${jobCounter}" name="start-date-${jobCounter}" placeholder="Oct 2023" autocomplete="off">
     </div>
     <div class="form-group">
-        <label for="end-date">End Date</label>
-        <input type="text" id="end-date" name="end-date" placeholder="Jun 2027" autocomplete="off">
+        <label for="end-date-${jobCounter}">End Date</label>
+        <input type="text" id="end-date-${jobCounter}" name="end-date-${jobCounter}" placeholder="Jun 2027" autocomplete="off">
     </div>
     <div class="form-group responsibilities-${jobCounter}">
         <label for="responsibilities-${jobCounter}">Job Responsibilities</label>
