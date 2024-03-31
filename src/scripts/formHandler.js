@@ -135,10 +135,10 @@ const formData = {
                         <input type="text" id="name-1" name="name-1" placeholder="Programming Languages" autocomplete="off">
                     </div>
                     <div class="form-group details-1">
-                        <label for="details-1">Skill Details</label>
+                        <label for="details-1-1">Skill Details</label>
                         <button onclick="addDetails(1)">+</button>
                         <button onclick="removeDetails(1)">-</button>
-                        <input type="text" id="details-1" name="details-1" placeholder="Java" autocomplete="off">
+                        <input type="text" id="details-1-1" name="details-1-1" placeholder="Java" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -320,7 +320,8 @@ function addDetails(detailCount) {
     const detailsContainer = document.querySelector(`.details-${detailCount}`);
     const newDetail = document.createElement("input");
     newDetail.type = "text";
-    newDetail.name = `detail-${detailCount}`;
+    newDetail.id = `details-${detailCount}-${detailsContainer.childElementCount - 2}`;
+    newDetail.name = `detail-${detailCount}-${detailsContainer.childElementCount - 2}`;
     newDetail.placeholder = "Java";
     newDetail.autocomplete = "off";
     
@@ -351,10 +352,10 @@ function addSkill() {
             <input type="text" id="name-${skillCounter}" name="name-${skillCounter}" placeholder="Programming Languages" autocomplete="off">
         </div>
         <div class="form-group details-${skillCounter}">
-            <label for="details-${skillCounter}">Skill Details</label>
+            <label for="details-${skillCounter}-1">Skill Details</label>
             <button onclick="addDetails(${skillCounter})">+</button>
             <button onclick="removeDetails(${skillCounter})">-</button>
-            <input type="text" id="details-${skillCounter}" name="details-${skillCounter}" placeholder="Java" autocomplete="off">
+            <input type="text" id="details-${skillCounter}-1" name="details-${skillCounter}-1" placeholder="Java" autocomplete="off">
         </div>
         `;
 
