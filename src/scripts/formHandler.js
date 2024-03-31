@@ -1,5 +1,6 @@
 let educationCounter = 1;
 let jobCounter = 1;
+let skillCounter = 1;
 
 const formData = {
   profile: {
@@ -120,7 +121,33 @@ const formData = {
     values: {},
   },
   skills: {
-    html: "",
+    html: `
+            <h2>YOUR SKILLS</h2>
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="heading">Section Heading</label>
+                    <input type="text" id="heading" name="heading" placeholder="Skills" autocomplete="off">
+                </div>
+                <div class="skills-group">
+                    <hr>
+                    <div class="form-group">
+                        <label for="name-1">Skill Name</label>
+                        <input type="text" id="name-1" name="name-1" placeholder="Programming Languages" autocomplete="off">
+                    </div>
+                    <div class="form-group details-1">
+                        <label for="details-1">Skill Details</label>
+                        <button onclick="addDetails(1)">+</button>
+                        <button onclick="removeDetails(1)">-</button>
+                        <input type="text" id="details-1" name="details-1" placeholder="Java" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button onclick="addSkill()">Add Skill</button>
+                <button onclick="removeSkill()">Remove Skill</button>
+            </div>
+        `,
     values: {},
   },
   projects: {
@@ -181,9 +208,7 @@ function addResponsibility(jobCount) {
 }
 
 function removeResponsibility(jobCount) {
-  const responsibilitiesContainer = document.querySelector(
-    `.responsibilities-${jobCount}`
-  );
+  const responsibilitiesContainer = document.querySelector(`.responsibilities-${jobCount}`);
   const responsibilitiesCount = responsibilitiesContainer.childElementCount;
 
   if (responsibilitiesCount > 4) {
@@ -287,5 +312,60 @@ function removeSchool() {
         const lastSchool = schoolContainer.lastElementChild;
         lastSchool.remove();
         educationCounter--;
+    }
+}
+
+function addDetails(detailCount) {
+    const detailsContainer = document.querySelector(`.details-${detailCount}`);
+    const newDetail = document.createElement("input");
+    newDetail.type = "text";
+    newDetail.name = `detail-${detailCount}`;
+    newDetail.placeholder = "Java";
+    newDetail.autocomplete = "off";
+    
+    detailsContainer.appendChild(newDetail);
+}
+
+function removeDetails(detailCount) {
+    const detailsContainer = document.querySelector(`.details-${detailCount}`);
+    const detailsCount = detailsContainer.childElementCount;
+    
+    if (detailsCount > 4) {
+        const lastDetail = detailsContainer.lastElementChild;
+        detailsContainer.removeChild(lastDetail);
+    }
+}
+
+function addSkill() {
+    const skillContainer = document.querySelector(".form-container");
+
+    const skillGroup = document.createElement("div");
+    skillGroup.classList.add("skill-group");
+
+    skillCounter++;
+
+    skillGroup.innerHTML = `<hr>
+        <div class="form-group">
+            <label for="name-${skillCounter}">Skill Name</label>
+            <input type="text" id="name-${skillCounter}" name="name-${skillCounter}" placeholder="Programming Languages" autocomplete="off">
+        </div>
+        <div class="form-group details-${skillCounter}">
+            <label for="details-${skillCounter}">Skill Details</label>
+            <button onclick="addDetails(${skillCounter})">+</button>
+            <button onclick="removeDetails(${skillCounter})">-</button>
+            <input type="text" id="details-${skillCounter}" name="details-${skillCounter}" placeholder="Java" autocomplete="off">
+        </div>
+        `;
+
+    skillContainer.appendChild(skillGroup);
+}
+
+function removeSkill() {
+    const skillContainer = document.querySelector(".form-container");
+
+    if (skillCounter > 1) {
+        const lastSkill = skillContainer.lastElementChild;
+        lastSkill.remove();
+        skillCounter--;
     }
 }
