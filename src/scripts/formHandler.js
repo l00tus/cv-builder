@@ -104,10 +104,10 @@ const formData = {
                         <input type="text" id="end-date-1" name="end-date-1" placeholder="Jun 2027" autocomplete="off">
                     </div>
                     <div class="form-group responsibilities-1">
-                        <label for="responsibilities-1">Job Responsibilities</label>
+                        <label for="responsibilities-1-1">Job Responsibilities</label>
                         <button onclick="addResponsibility(1)">+</button>
                         <button onclick="removeResponsibility(1)">-</button>
-                        <input type="text" id="responsibilities-1" name="responsibilities-1" placeholder="Did cool stuff" autocomplete="off">
+                        <input type="text" id="responsibilities-1-1" name="responsibilities-1-1" placeholder="Did cool stuff" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -173,7 +173,8 @@ function addResponsibility(jobCount) {
   );
   const newResponsibility = document.createElement("input");
   newResponsibility.type = "text";
-  newResponsibility.name = `responsibility-${jobCount}`;
+  newResponsibility.id = `responsibilities-${jobCount}-${responsibilitiesContainer.childElementCount - 2}`;
+  newResponsibility.name = `responsibility-${jobCount}-${responsibilitiesContainer.childElementCount - 2}`;
   newResponsibility.placeholder = "Did cool stuff";
   newResponsibility.autocomplete = "off";
 
@@ -222,10 +223,10 @@ function addJob() {
         <input type="text" id="end-date-${jobCounter}" name="end-date-${jobCounter}" placeholder="Jun 2027" autocomplete="off">
     </div>
     <div class="form-group responsibilities-${jobCounter}">
-        <label for="responsibilities-${jobCounter}">Job Responsibilities</label>
+        <label for="responsibilities-${jobCounter}-1}">Job Responsibilities</label>
         <button onclick="addResponsibility(${jobCounter})">+</button>
         <button onclick="removeResponsibility(${jobCounter})">-</button>
-        <input type="text" id="responsibilities-${jobCounter}" name="responsibilities-${jobCounter}" placeholder="Did cool stuff" autocomplete="off">
+        <input type="text" id="responsibilities-${jobCounter}-1" name="responsibilities-${jobCounter}-1" placeholder="Did cool stuff" autocomplete="off">
     </div>
     `;
 
