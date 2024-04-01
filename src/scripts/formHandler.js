@@ -156,7 +156,7 @@ const formData = {
   },
   projects: {
     html: `
-            <h2>YOUR WORK EXPERIENCE</h2>
+            <h2>YOUR PROJECTS</h2>
             <div class="form-container">
                 <div class="form-group">
                     <label for="heading">Section Heading</label>
