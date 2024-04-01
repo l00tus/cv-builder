@@ -1,6 +1,10 @@
+let currentForm = null;
+
 let educationCounter = 1;
 let jobCounter = 1;
 let skillCounter = 1;
+let projectCounter = 1;
+let awardCounter = 1;
 
 const formData = {
   profile: {
@@ -155,17 +159,48 @@ const formData = {
     values: {},
   },
   awards: {
-    html: "",
+    html: `
+            <h2>HONORS & AWARDS</h2>
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="heading">Section Heading</label>
+                    <input type="text" id="heading" name="heading" placeholder="Awards" autocomplete="off">
+                </div>
+                <div class="award-group">
+                    <hr>
+                    <div class="form-group">
+                        <label for="name-1">Award Name</label>
+                        <input type="text" id="name-1" name="name-1" placeholder="Tech Wizard" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="date-1">Award Date</label>
+                        <input type="text" id="date-1" name="date-1" placeholder="Nov 2023" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="awarder-1">Awarder</label>
+                        <input type="text" id="awarder-1" name="awarder-1" placeholder="UNIHack" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="summary-1">Summary</label>
+                        <input type="text" id="summary-1" name="summary-1" placeholder="Recognized for creating the coolest website" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button onclick="addAward()">Add Award</button>
+                <button onclick="removeAward()">Remove Award</button>
+            </div>
+        `,
     values: {},
   },
 };
 
-let currentForm = null;
 
 function saveForm() {
   if (currentForm) {
     const formHtml = document.querySelector(".info").innerHTML;
-    const formInputs = document.querySelectorAll(".info input, .info textarea");
+    const formInputs = document.querySelectorAll(".info input, .info textarea"); //remove textarea  
     const formValues = {};
     formInputs.forEach((input) => {
       formValues[input.id] = input.value;
@@ -369,5 +404,45 @@ function removeSkill() {
         const lastSkill = skillContainer.lastElementChild;
         lastSkill.remove();
         skillCounter--;
+    }
+}
+
+function addAward() {
+    const awardContainer = document.querySelector(".form-container");
+
+    const awardGroup = document.createElement("div");
+    awardGroup.classList.add("award-group");
+
+    awardCounter++;
+
+    awardGroup.innerHTML = `<hr>
+        <div class="form-group">
+            <label for="name-${awardCounter}">Award Name</label>
+            <input type="text" id="name-${awardCounter}" name="name-${awardCounter}" placeholder="Tech Wizard" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="date-${awardCounter}">Award Date</label>
+            <input type="text" id="date-${awardCounter}" name="date-${awardCounter}" placeholder="Nov 2023" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="awarder-${awardCounter}">Awarder</label>
+            <input type="text" id="awarder-${awardCounter}" name="awarder-${awardCounter}" placeholder="UNIHack" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="summary-${awardCounter}">Summary</label>
+            <input type="text" id="summary-${awardCounter}" name="summary-${awardCounter}" placeholder="Recognized for creating the coolest website" autocomplete="off">
+        </div>
+        `;
+
+    awardContainer.appendChild(awardGroup);
+}
+
+function removeAward() {
+    const awardContainer = document.querySelector(".form-container");
+
+    if (awardCounter > 1) {
+        const lastAward = awardContainer.lastElementChild;
+        lastAward.remove();
+        awardCounter--;
     }
 }
