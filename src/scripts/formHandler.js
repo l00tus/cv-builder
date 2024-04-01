@@ -155,7 +155,41 @@ const formData = {
     values: {},
   },
   projects: {
-    html: "",
+    html: `
+            <h2>YOUR WORK EXPERIENCE</h2>
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="heading">Section Heading</label>
+                    <input type="text" id="heading" name="heading" placeholder="Projects" autocomplete="off">
+                </div>
+                <div class="project-group">
+                    <hr>
+                    <div class="form-group">
+                        <label for="name-1">Project Name</label>
+                        <input type="text" id="name-1" name="name-1" placeholder="CV Builder" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="tech-1">Technologies Used</label>
+                        <input type="text" id="tech-1" name="tech-1" placeholder="JavaScript, Python, Flask" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="link-1">Link to Project</label>
+                        <input type="url" id="link-1" name="link-1" placeholder="https://bestproject.tech" autocomplete="off">
+                    </div>
+                    <div class="form-group description-1">
+                        <label for="description-1-1">Project Description</label>
+                        <button onclick="addDescription(1)">+</button>
+                        <button onclick="removeDescription(1)">-</button>
+                        <input type="text" id="description-1-1" name="description-1-1" placeholder="Developed a CV Building web application" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button onclick="addProject()">Add Project</button>
+                <button onclick="removeProject()">Remove Project</button>
+            </div>
+        `,
     values: {},
   },
   awards: {
@@ -444,5 +478,69 @@ function removeAward() {
         const lastAward = awardContainer.lastElementChild;
         lastAward.remove();
         awardCounter--;
+    }
+}
+
+function addDescription(descriptionCount) {
+    const descriptionContainer = document.querySelector(`.description-${descriptionCount}`);
+    const newDescription = document.createElement("input");
+    newDescription.type = "text";
+    newDescription.id = `description-${descriptionCount}-${descriptionContainer.childElementCount - 2}`;
+    newDescription.name = `description-${descriptionCount}-${descriptionContainer.childElementCount - 2}`;
+    newDescription.placeholder = "Developed a CV Building web application";
+    newDescription.autocomplete = "off";
+
+    descriptionContainer.appendChild(newDescription);
+}
+
+function removeDescription(descriptionCount) {
+    const descriptionContainer = document.querySelector(`.description-${descriptionCount}`);
+    const descriptionsCounter = descriptionContainer.childElementCount;
+
+    if (descriptionsCounter > 4) {
+        const lastDescription = descriptionContainer.lastElementChild;
+        descriptionContainer.removeChild(lastDescription);
+    }
+}
+
+function addProject() {
+    const projectContainer = document.querySelector(".form-container");
+
+    const projectGroup = document.createElement("div");
+    projectGroup.classList.add("project-group");
+
+    projectCounter++;
+
+    projectGroup.innerHTML = `<hr>
+        <div class="form-group">
+            <label for="name-${projectCounter}">Project Name</label>
+            <input type="text" id="name-${projectCounter}" name="name-${projectCounter}" placeholder="CV Builder" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="tech-${projectCounter}">Technologies Used</label>
+            <input type="text" id="tech-${projectCounter}" name="tech-${projectCounter}" placeholder="JavaScript, Python, Flask" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="link-${projectCounter}">Link to Project</label>
+            <input type="url" id="link-${projectCounter}" name="link-${projectCounter}" placeholder="https://bestproject.tech" autocomplete="off">  
+        </div>
+        <div class="form-group description-${projectCounter}">
+            <label for="description-${projectCounter}-1">Project Description</label>
+            <button onclick="addDescription(${projectCounter})">+</button>
+            <button onclick="removeDescription(${projectCounter})">-</button>
+            <input type="text" id="description-${projectCounter}-1" name="description-${projectCounter}-1" placeholder="Developed a CV Building web application" autocomplete="off">
+        </div>
+        `;
+
+    projectContainer.appendChild(projectGroup);
+}
+
+function removeProject() {
+    const projectContainer = document.querySelector(".form-container");
+
+    if (projectCounter > 1) {
+        const lastProject = projectContainer.lastElementChild;
+        lastProject.remove();
+        projectCounter--;
     }
 }
