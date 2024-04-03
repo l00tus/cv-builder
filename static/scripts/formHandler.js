@@ -232,19 +232,41 @@ const formData = {
 
 
 function saveForm() {
-  if (currentForm) {
-    const formHtml = document.querySelector(".info").innerHTML;
-    const formInputs = document.querySelectorAll(".info input, .info textarea"); //remove textarea  
-    const formValues = {};
-    formInputs.forEach((input) => {
-      formValues[input.id] = input.value;
-    });
-    formData[currentForm].html = formHtml;
-    formData[currentForm].values = formValues;
-  } else {
-    alert("Please select a form to save!");
-  }
+    if (currentForm) {
+        const formHtml = document.querySelector(".info").innerHTML;
+        const formInputs = document.querySelectorAll(".info input, .info textarea");
+        const formValues = {};
+        formInputs.forEach((input) => {
+            formValues[input.id] = input.value;
+        });
+        formData[currentForm].html = formHtml;
+        formData[currentForm].values = formValues;
+
+        const valuesData = {};
+        for (const section in formData) {
+                if (formData.hasOwnProperty(section)) {
+                        valuesData[section] = formData[section].values;
+                }
+        }
+
+        const jsonData = JSON.stringify(valuesData);
+
+        fetch('/process-data', {
+                method: 'POST',
+                headers: {
+                        'Content-Type': 'application/json'
+                },
+                body: jsonData
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+        
+    } else {
+        alert("Please select a form to save!");
+    }
 }
+
 
 function showForm(formName) {
   const formContainer = document.querySelector(".info");

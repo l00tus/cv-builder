@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
@@ -18,6 +18,11 @@ def list():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/process-data', methods=['POST'])
+def process_data():
+    data = request.json
+    return jsonify({'message': 'Data received successfully'})
 
 if __name__ == '__main__':
     app.run(debug=True)
