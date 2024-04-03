@@ -1,2 +1,2 @@
-def render_latex(data):
-    
+def render_latex(data):    
+    pass
