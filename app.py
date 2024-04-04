@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+from static.scripts.render_latex import *
 
 app = Flask(__name__)
 
