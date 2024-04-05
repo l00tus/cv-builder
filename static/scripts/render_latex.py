@@ -93,3 +93,6 @@ def render_profile(profile_data):
 \vspace{{2mm}}
     """
     return latex
+
+def render_education(education_data):
+    pass

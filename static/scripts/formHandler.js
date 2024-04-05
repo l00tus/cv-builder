@@ -261,7 +261,28 @@ function saveForm() {
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
+
+        let counters = {
+            education: educationCounter,
+            experience: jobCounter,
+            skills: skillCounter,
+            projects: projectCounter,
+            awards: awardCounter
+        };
+
+        const jsonCounters = JSON.stringify(counters);
         
+        fetch('/process-counters', {
+                method: 'POST',
+                headers: {
+                        'Content-Type': 'application/json'
+                },
+                body: jsonCounters
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+
     } else {
         alert("Please select a form to save!");
     }
