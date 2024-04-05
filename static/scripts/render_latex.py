@@ -83,16 +83,19 @@ def render_end():
     return latex
 
 def render_profile(profile_data):
+    name = profile_data['name']
+    location = profile_data['location']
+    email = profile_data['email']
+    phone = profile_data['phone']
+    site = profile_data['site']
+    
     latex = rf"""
 %==== Profile ====%
 \vspace*{{-10pt}}
 \begin{{center}}
-    {{\Huge \scshape {profile_data['name']}}}\\
-    {profile_data['location']} $\cdot$ {profile_data['email']} $\cdot$ {profile_data['phone']} $\cdot$ {profile_data['site']}\\
+    {{\Huge \scshape {name}}}\\
+    {location} $\cdot$ {email} $\cdot$ {phone} $\cdot$ {site}\\
 \end{{center}}
 \vspace{{2mm}}
     """
     return latex
-
-def render_education(education_data):
-    pass

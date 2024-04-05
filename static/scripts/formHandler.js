@@ -249,20 +249,7 @@ function saveForm() {
                 }
         }
 
-        const jsonData = JSON.stringify(valuesData);
-
-        fetch('/process-data', {
-                method: 'POST',
-                headers: {
-                        'Content-Type': 'application/json'
-                },
-                body: jsonData
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error));
-
-        let counters = {
+        const countersData = {
             education: educationCounter,
             experience: jobCounter,
             skills: skillCounter,
@@ -270,14 +257,18 @@ function saveForm() {
             awards: awardCounter
         };
 
-        const jsonCounters = JSON.stringify(counters);
-        
-        fetch('/process-counters', {
+
+        const jsonData = JSON.stringify({
+            values: valuesData,
+            counters: countersData
+        });
+
+        fetch('/process-data', {
                 method: 'POST',
                 headers: {
                         'Content-Type': 'application/json'
                 },
-                body: jsonCounters
+                body: jsonData
         })
         .then(response => response.json())
         .then(data => console.log(data))
