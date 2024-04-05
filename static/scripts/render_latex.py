@@ -97,5 +97,30 @@ def render_profile(profile_data):
     {location} $\cdot$ {email} $\cdot$ {phone} $\cdot$ {site}\\
 \end{{center}}
 \vspace{{2mm}}
+
     """
+    return latex
+
+def render_education(education_data, counter):
+    latex = r"""
+%==== Education ====%
+\header{Education}
+\vspace{1mm}
+    
+    """
+    
+    for i in range(1, counter + 1):
+        name = education_data[f'name-{i}']
+        location = education_data[f'location-{i}']
+        degree = education_data[f'degree-{i}']
+        field = education_data[f'field-{i}']
+        start_date = education_data[f'start-date-{i}']
+        end_date = education_data[f'end-date-{i}']
+        
+        latex += rf"""
+\textbf{{{name}}}\hfill {location}\\
+{degree} {field} \hfill {start_date} - {end_date}\\
+\vspace{{2mm}}
+    """
+        
     return latex

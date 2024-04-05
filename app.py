@@ -23,7 +23,6 @@ def about():
 @app.route('/process-data', methods=['POST'])
 def process_data():
     data = request.json
-    print(data)
     return jsonify({'message': 'Data received successfully (values)'})
 
 if __name__ == '__main__':
