@@ -102,13 +102,12 @@ def render_profile(profile_data):
     return latex
 
 def render_education(education_data, counter):
-    latex = r"""
-%==== Education ====%
-\header{Education}
-\vspace{1mm}
+    latex = rf"""
+%==== {education_data['heading']} ====%
+\header{{{education_data['heading']}}}
+\vspace{{1mm}}
     
     """
-    
     for i in range(1, counter + 1):
         name = education_data[f'name-{i}']
         location = education_data[f'location-{i}']
@@ -123,4 +122,44 @@ def render_education(education_data, counter):
 \vspace{{2mm}}
     """
         
+    return latex
+
+def render_experience(experience_data, counter):
+    latex = rf"""
+%==== {experience_data['heading']} ====%
+\vspace{{1mm}}
+
+    """
+    for i in range(1, counter + 1):
+        count = 1;
+        name = experience_data[f'name-{i}']
+        title = experience_data[f'title-{i}']
+        location = experience_data[f'location-{i}']
+        start_date = experience_data[f'start-date-{i}']
+        end_date = experience_data[f'end-date-{i}']
+        
+        latex += rf"""
+\textbf{{{name}}}\hfill {location}\\
+\textit{{{title}}}\hfill {start_date} - {end_date}\\
+\vspace{{-2mm}}
+        """
+        latex += r"""
+\begin{itemize} \itemsep 1pt
+        """
+        while True:
+            if f'responsibilities-{i}-{count}' not in experience_data:
+                break
+            latex += rf"""
+    \item {experience_data[f'responsibilities-{i}-{count}']}
+            """
+            count += 1
+        
+        latex += r"""
+\end{itemize}
+        """
+    
+    latex += r"""
+\vspace{2mm}
+    """
+    
     return latex
