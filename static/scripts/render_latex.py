@@ -127,6 +127,7 @@ def render_education(education_data, counter):
 def render_experience(experience_data, counter):
     latex = rf"""
 %==== {experience_data['heading']} ====%
+\header{{{experience_data['heading']}}}
 \vspace{{1mm}}
 
     """
@@ -159,6 +160,37 @@ def render_experience(experience_data, counter):
         """
     
     latex += r"""
+\vspace{2mm}
+    """
+    
+    return latex
+
+def render_skills(skills_data, counter):
+    latex = rf"""
+%==== {skills_data['heading']} ====%
+\header{{{skills_data['heading']}}}
+\vspace{{1mm}}
+    """
+    latex += r"""
+\begin{tabular}{ l l }"""
+    
+    for i in range(1, counter + 1):
+        count = 1;
+        name = skills_data[f'name-{i}']
+        
+        latex += rf"""
+    {name}: & """
+
+        while True:
+            if f'details-{i}-{count}' not in skills_data:
+                break
+            latex += rf"""{skills_data[f'details-{i}-{count}']}, """
+            count += 1
+        latex = latex[:-2]
+        latex += " \\\\ "
+        
+    latex += r"""
+\end{tabular}
 \vspace{2mm}
     """
     
