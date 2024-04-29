@@ -7,10 +7,17 @@ def render_defs():
     \usepackage{textcomp}
     \usepackage[utf8]{inputenc}
     \usepackage[T1]{fontenc}
+    \usepackage[normalem]{ulem}
+    \usepackage{hyperref}
     \textheight=10in
     \pagestyle{empty}
     \raggedright
     \usepackage[left=0.8in,right=0.8in,bottom=0.8in,top=0.8in]{geometry}
+    \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+	}
 
     %\renewcommand{\encodingdefault}{cg}
 %\renewcommand{\rmdefault}{lgrcmr}
@@ -195,3 +202,38 @@ def render_skills(skills_data, counter):
     """
     
     return latex
+
+def render_projects(projects_data, counter):
+    latex = rf"""
+%==== {projects_data['heading']} ====%
+\header{{{projects_data['heading']}}}
+\vspace{{1mm}}
+"""
+    for i in range(1, counter + 1):
+        count = 1;
+        name = projects_data[f'name-{i}']
+        tech = projects_data[f'tech-{i}']
+        link = projects_data[f'link-{i}']
+        
+        latex += rf"""
+\textbf{{{name}}} \hfill \\
+\textbf{{Link:}} \url{{{link}}} \hfill \\
+\textit{{{tech}}}
+\vspace{{-2mm}}
+\begin{{itemize}} \itemsep 1pt"""
+        while True:
+            if f'description-{i}-{count}' not in projects_data:
+                break
+            latex += rf"""
+    \item {projects_data[f'description-{i}-{count}']}"""
+            count += 1
+        
+        latex += rf"""
+\end{{itemize}}
+\vspace{{2mm}}
+"""
+
+    return latex
+
+def render_awards(awards_data, counter):
+    pass
