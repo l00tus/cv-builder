@@ -236,4 +236,20 @@ def render_projects(projects_data, counter):
     return latex
 
 def render_awards(awards_data, counter):
-    pass
+    latex = rf"""
+%==== {awards_data['heading']} ====%
+\header{{{awards_data['heading']}}}
+\vspace{{1mm}}
+"""
+    for i in range(1, counter + 1):
+        name = awards_data[f'name-{i}']
+        date = awards_data[f'date-{i}']
+        awarder = awards_data[f'awarder-{i}']
+        summary = awards_data[f'summary-{i}']
+        
+        latex += rf"""
+\textbf{{{name}}}\hfill {awarder}\\
+{summary} \hfill {date}\\
+\vspace{{2mm}}"""
+
+    return latex

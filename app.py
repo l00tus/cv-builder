@@ -23,8 +23,7 @@ def about():
 @app.route('/process-data', methods=['POST'])
 def process_data():
     data = request.json
-    print(render_projects(data['values']['projects'], data['counters']['projects']))
-    return jsonify({'message': 'Data received successfully (values)'})
+    return jsonify({'message': 'Data received successfully!'})
 
 if __name__ == '__main__':
     app.run(debug=True)
