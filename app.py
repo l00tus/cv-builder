@@ -22,11 +22,11 @@ def about():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('signin.html')
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+    return render_template('signup.html')
 
 @app.route('/process-data', methods=['POST'])
 def process_data():
