@@ -249,7 +249,19 @@ function saveForm() {
                 }
         }
 
-        const jsonData = JSON.stringify(valuesData);
+        const countersData = {
+            education: educationCounter,
+            experience: jobCounter,
+            skills: skillCounter,
+            projects: projectCounter,
+            awards: awardCounter
+        };
+
+
+        const jsonData = JSON.stringify({
+            values: valuesData,
+            counters: countersData
+        });
 
         fetch('/process-data', {
                 method: 'POST',
@@ -261,7 +273,7 @@ function saveForm() {
         .then(response => response.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
-        
+
     } else {
         alert("Please select a form to save!");
     }

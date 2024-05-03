@@ -31,7 +31,7 @@ def register():
 @app.route('/process-data', methods=['POST'])
 def process_data():
     data = request.json
-    return jsonify({'message': 'Data received successfully'})
+    return jsonify({'message': 'Data received successfully!'})
 
 if __name__ == '__main__':
     app.run(debug=True)
