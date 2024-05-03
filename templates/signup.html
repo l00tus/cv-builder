@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Builder</title>
     <link rel="icon" href="../static/assets/favicon.png" type="image/png">
-    <link rel="stylesheet" href="../static/styles/style.css">
-    <link rel="stylesheet" href="../static/styles/create.css">
+    <link rel="stylesheet" href="../static/styles/style.css"> 
+    <link rel="stylesheet" href="../static/styles/auth.css">
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 </head>
 <body>
@@ -32,31 +32,27 @@
     </div>
 
     <div class="content">
-        <div class="nav-col">
-            <ul>
-                <li><a href="#" onclick="showForm('profile')">Profile</a></li>
-                <li><a href="#" onclick="showForm('education')">Education</a></li>
-                <li><a href="#" onclick="showForm('experience')">Experience</a></li>
-                <li><a href="#" onclick="showForm('skills')">Skills</a></li>
-                <li><a href="#" onclick="showForm('projects')">Projects</a></li>
-                <li><a href="#" onclick="showForm('awards')">Awards</a></li>
-            </ul>
-
-            <div class="nav-buttons">
-                <button onclick="saveForm()">Save</button>
-                <button onclick="previewCV()">Preview</button>
-            </div>
+        <div class="header">
+            <h1>SIGN UP</h1>
         </div>
-        <div class="info">
-        </div>
-        <div class="preview">
-        </div>        
-    </div>
-    
-    <div class="footer">
-    
-    </div>
 
-    <script src="../static/scripts/formHandler.js"></script>
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autocomplete="off">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="off">
+
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" required autocomplete="off">
+        </div>
+
+        <div class="button">
+            <button>SIGN UP</button>
+        </div>
+        <div class="text">
+            <p>Already have an account? <a href="/login">Sign in now!</a></p>
+        </div>
+    </div>
 </body>
 </html>
