@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_file
 from static.scripts.render_latex import *
 from static.scripts.generate_pdf import *
 
@@ -29,9 +29,19 @@ def login():
 def register():
     return render_template('signup.html')
 
+@app.route('/generated/cv')
+def serve_pdf():
+    try:
+        path = 'generated/cv.pdf'
+        return send_file(path, mimetype='application/pdf')
+    except Exception as e:
+        return str(e)
+
 @app.route('/process-data', methods=['POST'])
 def process_data():
     data = request.json
+    generate_cv(data)
+    generate_pdf()
     return jsonify({'message': 'Data received successfully!'})
 
 if __name__ == '__main__':
