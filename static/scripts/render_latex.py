@@ -1,37 +1,29 @@
 def render_defs():
-    latex = r"""
-    \documentclass[a4paper]{article}
-    \usepackage{fullpage}
-    \usepackage{amsmath}
-    \usepackage{amssymb}
-    \usepackage{textcomp}
-    \usepackage[utf8]{inputenc}
-    \usepackage[T1]{fontenc}
-    \usepackage[normalem]{ulem}
-    \usepackage{hyperref}
-    \textheight=10in
-    \pagestyle{empty}
-    \raggedright
-    \usepackage[left=0.8in,right=0.8in,bottom=0.8in,top=0.8in]{geometry}
-    \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    urlcolor=blue,
-	}
+    latex = r"""\documentclass[a4paper]{article}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\textheight=10in
+\pagestyle{empty}
+\raggedright
+\usepackage[left=0.8in,right=0.8in,bottom=0.8in,top=0.8in]{geometry}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+urlcolor=blue,
+}
 
-    %\renewcommand{\encodingdefault}{cg}
+%\renewcommand{\encodingdefault}{cg}
 %\renewcommand{\rmdefault}{lgrcmr}
 
 \def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
 
 % DEFINITIONS FOR RESUME %%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand{\area}[2]{
-    \vspace*{-9pt}
-    \begin{verse}
-        \textbf{#1} #2
-    \end{verse}
-}
 
 \newcommand{\lineunder}{
     \vspace*{-8pt} \\
@@ -43,50 +35,20 @@ def render_defs():
     \vspace*{-6pt} \lineunder
 }
 
-\newcommand{\employer}[3]{
-    { \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }
-}
-
-\newcommand{\contact}[3]{
-    \vspace*{-10pt}
-    \begin{center}
-        {\Huge \scshape {#1}}\\
-        #2 \\ #3
-    \end{center}
-    \vspace*{-8pt}
-}
-
-\newenvironment{achievements}{
-    \begin{list}
-        {$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}
-    \end{list}
-}
-
-\newcommand{\schoolwithcourses}[4]{
-    \textbf{#1} #2 $\bullet$ #3\\
-    #4 \\
-    \vspace*{5pt}
-}
-
-\newcommand{\school}[4]{
-    \textbf{#1} #2 $\bullet$ #3\\
-    #4 \\
-}
 % END RESUME DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%
     """
     return latex
 
 def render_begin():
     latex = r"""
-    \begin{document}
+\begin{document}
 \vspace*{-40pt}
     """
     return latex
 
 def render_end():
     latex = r"""
-    \end{document}
-    """
+\end{document}"""
     return latex
 
 def render_profile(profile_data):
@@ -113,7 +75,6 @@ def render_education(education_data, counter):
 %==== {education_data['heading']} ====%
 \header{{{education_data['heading']}}}
 \vspace{{1mm}}
-    
     """
     for i in range(1, counter + 1):
         name = education_data[f'name-{i}']
@@ -136,7 +97,6 @@ def render_experience(experience_data, counter):
 %==== {experience_data['heading']} ====%
 \header{{{experience_data['heading']}}}
 \vspace{{1mm}}
-
     """
     for i in range(1, counter + 1):
         count = 1;
@@ -152,19 +112,17 @@ def render_experience(experience_data, counter):
 \vspace{{-2mm}}
         """
         latex += r"""
-\begin{itemize} \itemsep 1pt
-        """
+\begin{itemize} \itemsep 1pt"""
         while True:
             if f'responsibilities-{i}-{count}' not in experience_data:
                 break
             latex += rf"""
-    \item {experience_data[f'responsibilities-{i}-{count}']}
-            """
+    \item {experience_data[f'responsibilities-{i}-{count}']}"""
             count += 1
         
         latex += r"""
 \end{itemize}
-        """
+"""
     
     latex += r"""
 \vspace{2mm}
@@ -198,6 +156,7 @@ def render_skills(skills_data, counter):
         
     latex += r"""
 \end{tabular}
+
 \vspace{2mm}
     """
     
@@ -220,6 +179,7 @@ def render_projects(projects_data, counter):
 \textbf{{Link:}} \url{{{link}}} \hfill \\
 \textit{{{tech}}}
 \vspace{{-2mm}}
+
 \begin{{itemize}} \itemsep 1pt"""
         while True:
             if f'description-{i}-{count}' not in projects_data:
@@ -230,6 +190,7 @@ def render_projects(projects_data, counter):
         
         latex += rf"""
 \end{{itemize}}
+
 \vspace{{2mm}}
 """
 
@@ -250,6 +211,33 @@ def render_awards(awards_data, counter):
         latex += rf"""
 \textbf{{{name}}}\hfill {awarder}\\
 {summary} \hfill {date}\\
-\vspace{{2mm}}"""
+\vspace{{2mm}}
+"""
 
     return latex
+
+def generate_cv(data):
+    profile_data = data['values']['profile']
+    education_data = data['values']['education']
+    education_counter = data['counters']['education']
+    experience_data = data['values']['experience']
+    experience_counter = data['counters']['experience']
+    skills_data = data['values']['skills']
+    skills_counter = data['counters']['skills']
+    projects_data = data['values']['projects']
+    projects_counter = data['counters']['projects']
+    awards_data = data['values']['awards']
+    awards_counter = data['counters']['awards']
+    
+    cv = render_defs()
+    cv += render_begin()
+    cv += render_profile(profile_data)
+    cv += render_education(education_data, education_counter)
+    cv += render_experience(experience_data, experience_counter)
+    cv += render_skills(skills_data, skills_counter)
+    cv += render_projects(projects_data, projects_counter)
+    cv += render_awards(awards_data, awards_counter)
+    cv += render_end()
+    
+    with open('generated/cv.tex', 'w') as file:
+        file.write(cv)
