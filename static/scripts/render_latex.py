@@ -231,12 +231,25 @@ def generate_cv(data):
     
     cv = render_defs()
     cv += render_begin()
-    cv += render_profile(profile_data)
-    cv += render_education(education_data, education_counter)
-    cv += render_experience(experience_data, experience_counter)
-    cv += render_skills(skills_data, skills_counter)
-    cv += render_projects(projects_data, projects_counter)
-    cv += render_awards(awards_data, awards_counter)
+    
+    if profile_data:
+        cv += render_profile(profile_data)
+
+    if education_data:
+        cv += render_education(education_data, education_counter)
+
+    if experience_data:
+        cv += render_experience(experience_data, experience_counter)
+
+    if skills_data:
+        cv += render_skills(skills_data, skills_counter)
+
+    if projects_data:
+        cv += render_projects(projects_data, projects_counter)
+
+    if awards_data:
+        cv += render_awards(awards_data, awards_counter)
+        
     cv += render_end()
     
     with open('generated/cv.tex', 'w') as file:
