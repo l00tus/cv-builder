@@ -139,3 +139,10 @@ hr {
     cursor: pointer;
     margin-top: 20px;
 }
+
+.unsaved p {
+    text-align: center;
+    color: #A8E0FF;
+    font-size: 20px;
+    margin-top: 20px;
+}

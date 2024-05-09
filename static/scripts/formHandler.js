@@ -1,4 +1,5 @@
 let currentForm = null;
+let unsavedChanges = false;
 
 let educationCounter = 1;
 let jobCounter = 1;
@@ -230,6 +231,28 @@ const formData = {
   },
 };
 
+document.addEventListener("input", function(event) {
+    const target = event.target;
+    if (target.closest(".info input")) {
+        unsavedChanges = true;
+        showUnsavedChangesMessage();
+    }
+});
+
+function showUnsavedChangesMessage() {
+    const unsavedChangesMessage = document.querySelector(".unsaved");
+    if(unsavedChangesMessage.childElementCount > 0) {
+        return;
+    }
+    const message = document.createElement("p");
+    message.innerHTML = "You have unsaved changes!";
+    unsavedChangesMessage.appendChild(message);
+}
+
+function clearUnsavedChangesMessage() {
+    const unsavedChangesMessage = document.querySelector(".unsaved");
+    unsavedChangesMessage.innerHTML = "";
+}
 
 function saveForm() {
     if (currentForm) {
@@ -262,6 +285,9 @@ function saveForm() {
             values: valuesData,
             counters: countersData
         });
+
+        unsavedChanges = false;
+        clearUnsavedChangesMessage();
 
         fetch('/process-data', {
                 method: 'POST',
