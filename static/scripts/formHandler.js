@@ -237,7 +237,7 @@ function saveForm() {
         const formInputs = document.querySelectorAll(".info input, .info textarea");
         const formValues = {};
         formInputs.forEach((input) => {
-            formValues[input.id] = input.value;
+            formValues[input.id] = input.value; 
         });
         formData[currentForm].html = formHtml;
         formData[currentForm].values = formValues;
