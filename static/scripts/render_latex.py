@@ -57,17 +57,24 @@ def render_profile(profile_data):
     email = profile_data['email']
     phone = profile_data['phone']
     site = profile_data['site']
-    
+    info = [location, email, phone, site]
+    info = ' $\cdot$ '.join([i for i in info if i != ''])
+   
     latex = rf"""
 %==== Profile ====%
 \vspace*{{-10pt}}
 \begin{{center}}
     {{\Huge \scshape {name}}}\\
-    {location} $\cdot$ {email} $\cdot$ {phone} $\cdot$ {site}\\
-\end{{center}}
-\vspace{{2mm}}
+    """
+    
+    latex += rf"""{info}"""    
+        
+    latex += r"""
+\end{center}
+\vspace{2mm}
 
     """
+    
     return latex
 
 def render_education(education_data, counter):
@@ -111,16 +118,18 @@ def render_experience(experience_data, counter):
 \textit{{{title}}}\hfill {start_date} - {end_date}\\
 \vspace{{-2mm}}
         """
-        latex += r"""
-\begin{itemize} \itemsep 1pt"""
-        while True:
-            if f'responsibilities-{i}-{count}' not in experience_data:
-                break
-            latex += rf"""
-    \item {experience_data[f'responsibilities-{i}-{count}']}"""
-            count += 1
         
-        latex += r"""
+        if experience_data[f'responsibilities-{i}-1'] != '':
+            latex += r"""
+\begin{itemize} \itemsep 1pt"""
+            while True:
+                if f'responsibilities-{i}-{count}' not in experience_data:
+                    break
+                latex += rf"""
+    \item {experience_data[f'responsibilities-{i}-{count}']}"""
+                count += 1
+        
+            latex += r"""
 \end{itemize}
 """
     
@@ -143,7 +152,8 @@ def render_skills(skills_data, counter):
         count = 1;
         name = skills_data[f'name-{i}']
         
-        latex += rf"""
+        if name != '':
+            latex += rf"""
     {name}: & """
 
         while True:
@@ -175,23 +185,31 @@ def render_projects(projects_data, counter):
         link = projects_data[f'link-{i}']
         
         latex += rf"""
-\textbf{{{name}}} \hfill \\
-\textbf{{Link:}} \url{{{link}}} \hfill \\
-\textit{{{tech}}}
-\vspace{{-2mm}}
+\textbf{{{name}}} \hfill \\"""
 
-\begin{{itemize}} \itemsep 1pt"""
-        while True:
-            if f'description-{i}-{count}' not in projects_data:
-                break
+        if link != '':
             latex += rf"""
-    \item {projects_data[f'description-{i}-{count}']}"""
-            count += 1
-        
-        latex += rf"""
-\end{{itemize}}
+\textbf{{Link:}} \url{{{link}}} \hfill \\"""
 
-\vspace{{2mm}}
+        latex += rf"""
+\textit{{{tech}}}
+\vspace{{-2mm}}"""
+
+        if projects_data[f'description-{i}-1'] != '':
+            latex += r"""
+\begin{itemize} \itemsep 1pt"""
+            while True:
+                if f'description-{i}-{count}' not in projects_data:
+                    break
+                latex += rf"""
+    \item {projects_data[f'description-{i}-{count}']}"""
+                count += 1
+        
+            latex += r"""
+\end{itemize}
+"""
+    latex += r"""
+\vspace{2mm}
 """
 
     return latex
