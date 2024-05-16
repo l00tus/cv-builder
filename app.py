@@ -75,6 +75,11 @@ def register():
         
     return render_template('signup.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
+
 @app.route('/generated/cv')
 def serve_pdf():
     try:
