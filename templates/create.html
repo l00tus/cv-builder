@@ -27,6 +27,11 @@
             <div class="link">
                 <a href="/login">Sign In</a>
             </div>
+            {% if session.username%}
+                <div class="link">
+                    <a href="">{{session.username}}</a>
+                </div>
+            {% endif %}
             <a href="/home"><img class="nav-img" src="../static/assets/nav-img.png"></a>   
         </div>
     </div>
