@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, jsonify, request, send_file, session, url_for
 from static.scripts.render_latex import *
 from static.scripts.generate_pdf import *
+from datetime import datetime
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
@@ -84,7 +85,28 @@ def logout():
 def serve_pdf():
     try:
         path = 'generated/cv.pdf'
+        
         return send_file(path, mimetype='application/pdf')
+    except Exception as e:
+        return str(e)
+    
+@app.route('/download-pdf')
+def download_pdf():
+    try:
+        path = 'generated/cv.pdf'
+        now = datetime.now()
+        filename = 'cv_' + now.strftime('%dH%M%S') + '.pdf'
+        return send_file(path, as_attachment=True, download_name=filename, mimetype='application/pdf')
+    except Exception as e:
+        return str(e)
+
+@app.route('/download-tex')
+def download_tex():
+    try:
+        path = 'generated/cv.tex'
+        now = datetime.now()
+        filename = 'cv_' + now.strftime('%dH%M%S') + '.tex'
+        return send_file(path, as_attachment=True, download_name=filename, mimetype='application/x-tex')
     except Exception as e:
         return str(e)
 
