@@ -24,9 +24,18 @@
             <div class="link">
                 <a href="/about">About</a>
             </div>
-            <div class="link">
-                <a href="/login">Sign In</a>
-            </div>
+            {% if session.username%}
+                <div class="link">
+                    <a href="/logout">Log Out</a>
+                </div>
+                <div class="link">
+                    <a href="">{{session.username}}</a>
+                </div>
+            {% else %}
+                <div class="link">
+                    <a href="/login">Sign In</a>
+                </div>
+            {% endif %}
             <a href="/home"><img class="nav-img" src="../static/assets/nav-img.png"></a>   
         </div>
     </div>
@@ -36,17 +45,19 @@
             <h1>SIGN IN</h1>
         </div>
 
-        <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required autocomplete="off">
+        <form method="POST" action="/login">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="off">
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required autocomplete="off">
-        </div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="off">
+            </div>
 
-        <div class="button">
-            <button>SIGN IN</button>
-        </div>
+            <div class="button">
+                <button type="submit">SIGN IN</button>
+            </div>
+        </form>
         <div class="text">
             <p>Don't have an account? <a href="/register">Sign up now!</a></p>
         </div>
