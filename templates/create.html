@@ -56,7 +56,9 @@
                 <button onclick="previewCV()">Preview</button>
                 <a href="/download-pdf"><button>Download PDF</button></a>
                 <a href="/download-tex"><button>Download .tex</button></a>
-                <button onclick="">Store in account</button>
+                <form action='/save-cv' method='POST'>
+                    <button type="submit">Store in account</button>
+                </form>
             </div>
 
             <div class="unsaved">
