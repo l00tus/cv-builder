@@ -1,3 +1,6 @@
+import base64
+import io
+import zipfile
 from flask import Flask, redirect, render_template, jsonify, request, send_file, session, url_for
 from static.scripts.render_latex import *
 from static.scripts.generate_pdf import *
@@ -21,7 +24,23 @@ def create():
 
 @app.route('/list')
 def list():
-    return render_template('list.html')
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user_id = session['user_id']
+    conn = get_db_connection('cv')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM cvs WHERE user_id = ?', (user_id,))
+    cvs = cursor.fetchall()
+    conn.close()
+    
+    cv_b64 = []
+    for cv in cvs:
+        cv_dict = dict(cv)
+        cv_dict['pdf_data'] = base64.b64encode(cv_dict['pdf_data']).decode('utf-8')
+        cv_b64.append(cv_dict)
+        
+    return render_template('list.html', cvs=cv_b64)
 
 @app.route('/about')
 def about():
@@ -111,6 +130,28 @@ def download_tex():
     except Exception as e:
         return str(e)
 
+@app.route('/download-zip/<int:cv_id>')
+def download_zip(cv_id):
+    cv_pdf_data, cv_tex_data = get_cv_data_from_db(cv_id)
+    zip_buffer = io.BytesIO()
+    
+    with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
+        zip_file.writestr('cv.pdf', cv_pdf_data)
+        zip_file.writestr('cv.tex', cv_tex_data)
+    
+    zip_buffer.seek(0)
+    
+    return send_file(zip_buffer, as_attachment=True, download_name='cv.zip', mimetype='application/zip')
+
+def get_cv_data_from_db(cv_id):
+    conn = get_db_connection('cv')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM cvs WHERE id = ?', (cv_id,))
+    cv = cursor.fetchone()
+    conn.close()
+    
+    return cv['pdf_data'], cv['tex_data']
+
 @app.route('/save-cv', methods=['POST'])
 def save_cv():
     if 'user_id' not in session:
@@ -124,7 +165,7 @@ def save_cv():
         pdf_data, tex_data = get_cv_data(pdf_path, tex_path)
         save_cv_data(user_id, pdf_data, tex_data)
         
-        return redirect(url_for('index')) #modify to redirect to list
+        return redirect(url_for('list')) #modify to redirect to list
     else:
         print('Files not found')
         return redirect(url_for('index')) #modify to redirect to list

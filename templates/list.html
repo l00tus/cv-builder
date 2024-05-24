@@ -6,6 +6,7 @@
     <title>CV Builder</title>
     <link rel="icon" href="../static/assets/favicon.png" type="image/png">
     <link rel="stylesheet" href="../static/styles/style.css">
+    <link rel="stylesheet" href="../static/styles/list.css">
     <link href="https://fonts.cdnfonts.com/css/nexa-bold" rel="stylesheet">
 </head>
 <body>
@@ -36,6 +37,18 @@
                 </div>
             {% endif %}
             <a href="/home"><img class="nav-img" src="../static/assets/nav-img.png"></a>   
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>{{session.username}}'s CV List</h2>
+        <div class="cv-list">
+            {% for cv in cvs %}
+                <div class="cv-item">
+                    <iframe src="data:application/pdf;base64,{{ cv.pdf_data }}" width="600px" height="600px" frameborder="0"></iframe>
+                    <a href="/download-zip/{{cv.id}}"><button>Download .zip</button></a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>
