@@ -20,6 +20,9 @@ def index():
 
 @app.route('/create')
 def create():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
     return render_template('create.html')
 
 @app.route('/list')
