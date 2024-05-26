@@ -6,6 +6,7 @@
 }
 
 .start {
+    width: 50%;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -38,8 +39,14 @@
     font-weight: bold;
 }
 
+.img-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .home-image {
-    margin-right: 190px;
     width: 475px;
     box-shadow: 30px -30px 1px #0e094a59;
 }
