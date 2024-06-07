@@ -3,7 +3,7 @@
 A website that generates a resume without the need of any coding.
 <br>
 <br>
-Enter your info, press <button>Save</button> and then <button>Preview</button> to preview your resume.
+Enter your info, press <kbd>Save</kbd> and then <kbd>Preview</kbd> to preview your resume.
 <br>
 After you've finished, you can download your resume as PDF or TeX. Additionally, you can store it to your own account.
 
