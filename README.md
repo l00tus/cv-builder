@@ -5,9 +5,13 @@ A website that generates a resume without the need of any coding.
 <br>
 Enter your info, press <kbd>Save</kbd> and then <kbd>Preview</kbd> to preview your resume.
 <br>
-After you've finished, you can download your resume as PDF or TeX. Additionally, you can store it to your own account.
+After you've finished, you can download your resume as PDF or TeX.
 
-![pula](https://andrewstephen.xyz/lotus1.png)
+![page1](https://andrewstephen.xyz/lotus1.png)
+
+Additionally, you can store it to your own account's private repository of resumes.
+
+![page2](https://andrewstephen.xyz/lotus3.png)
 
 ## Running locally
 
